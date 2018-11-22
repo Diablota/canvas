@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="canvas.css" />
+    </head>
+    <body>
+        <canvas id="myCanvas" width="1880" height="895" style="border:10px solid #98340d;">
+        </canvas>
+        <script type="text/javascript">
+
+window.onload = function() {
+  
+  var canvas = document.getElementById("myCanvas");
+  if(!canvas)
+  {
+      alert("Impossible de récupérer le canvas");
+      return;
+  }
+  var context = canvas.getContext("2d");
+  if(!context)
+  {
+      alert("Impossible de récupérer le context");
+      return;
+  }
+
+
+    var mon_image = new Image();
+    mon_image.src = "bateau.png";
+    
+    var diametreBalle = 50;
+
+    var posX_Joueur = 257;
+    var posY_Joueur = 196;
+    var diametreBalleJoueur = diametreBalle*2
+    var max_ball = 3 - 1;
+    var posX = [];
+    var posY = [];
+    var vitesseX = [];
+    var vitesseY = [];
+    var myInterval = setInterval(animate, 1000/30);
+  
+
+  function randomInt(int) {
+      return Math.floor(Math.random() * int) + 1;
+  }
+  function getMouse() {
+       document.addEventListener("mousemove", mouseMoveHandler, false);
+       function mouseMoveHandler(e) {
+           var relativeX = e.clientX - canvas.offsetLeft;
+           var relativeY = e.clientY - canvas.offsetTop;
+           if(relativeX > 0 && relativeX < canvas.width) {
+               posX_Joueur=relativeX;
+           }
+           if(relativeY > 0 && relativeY < canvas.height) {
+               posY_Joueur=relativeY;
+           }
+       }
+   }
+  
+
+
+  for(i = 0; i <= max_ball; i++) {
+      posX[i] = randomInt(550)+diametreBalle/2;
+      posY[i] = randomInt(550)+diametreBalle/2;
+      vitesseX[i] = 10;
+      vitesseY[i] = 10;
+  }
+  
+  function animate()
+  {
+//On n'oublie pas de récupérer l'objet canvas et son context.
+
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      //Tracé de la balle
+      for(i = 0; i <= max_ball; i++) {
+          context.beginPath();
+
+context.drawImage(mon_image, 0, 0, 257, 196, 35, 60, 130, 100);
+
+
+
+
+       context.arc(posX_Joueur, posY_Joueur, diametreBalle*2, 0, Math.PI*2);
+       context.fill();
+          context.arc(posX[i], posY[i], diametreBalle/1, 0, Math.PI*2);
+          context.fill();
+          //On va vérifier si la balle à toucher l'un des bords du canvas.
+          if(posX[i]+diametreBalle/2 >= canvas.width || posX[i] <= 0+diametreBalle/2)//Si on touche le bord gauche ou droit
+          {
+              vitesseX[i] *= -1;//On inverse la vitesse de déplacement sur l'axe horizontal.
+          }
+          if(posY[i]+diametreBalle/2 >= canvas.height || posY[i] <= 0+diametreBalle/2)//Si on touche le bord du bas ou du haut
+          {
+              vitesseY[i] *= -1;//On inverse la vitesse de déplacement sur l'axe vertical.
+          }
+          //On additionne les vitesses de déplacement avec les positions
+          posX[i] += vitesseX[i];
+          posY[i] += vitesseY[i];
+          getMouse()
+      }
+  }
+}
+</script>
+</body>
+</html>
