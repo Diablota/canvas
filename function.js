@@ -11,6 +11,8 @@ function isIncolisionCanvas(pos, largeur, canvasSize) {
     return colision;
 }
 
+var test = 0; /////////////////////////////////////////////////////////////////////////////////////////
+
 function checkColision(pos, canvasSize, largeur) {
     var borderColision = 5;
     var bord = false;
