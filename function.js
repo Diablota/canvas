@@ -27,9 +27,9 @@ posXBombe.push(posX_Joueur+130);
 posYBombe.push(posY_Joueur+50);
 }
 function deplaceTire(){
-for (var i = 0; i < posXBombe.length; i++) {
-  posXBombe[i]+=1;
-}
+  for (var i = 0; i < posXBombe.length; i++) {
+    posXBombe[i]+=1;
+  }
 }
 
 

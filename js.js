@@ -1,42 +1,4 @@
-// initialisation
-var canvas = document.getElementById("myCanvas");
-if(!canvas)
-{
-    alert("Impossible de récupérer le canvas");
-}
 
-var context = canvas.getContext("2d");
-if(!context)
-{
-    alert("Impossible de récupérer le context");
-}
-
-var diametreBalle = 20;
-var posX_Joueur = 257;
-var posY_Joueur = 196;
-var max_ball = 20;
-var posX = [];
-var posY = [];
-var vitesseX = [];
-var vitesseY = [];
-var posXBombe = [];
-var posYBombe = [];
-
-initialisationBalles(posX, posY, vitesseX, vitesseY, diametreBalle, max_ball);
-
-// evènements
-window.addEventListener("mousemove", function(e) {
-   var relativeX = e.clientX - canvas.offsetLeft;
-   var relativeY = e.clientY - canvas.offsetTop;
-   if(relativeX > 0 && relativeX < canvas.width) {
-       posX_Joueur=relativeX - 50;
-   }
-   if(relativeY > 0 && relativeY < canvas.height) {
-       posY_Joueur=relativeY - 50;
-   }
-});
-
-var myInterval = setInterval(animate, 1000/20);
 
 function animate() {
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -57,7 +19,6 @@ function animate() {
 
         // context.drawImage(obstacle2, 0, 0, 846, 854, posX[i], posY[i], 50, 50);
 
-    
         context.fill();
 
         if(isIncolisionCanvas(posX[i], 100, canvas.width)) {
